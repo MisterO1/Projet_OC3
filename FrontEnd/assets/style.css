@@ -93,6 +93,7 @@ nav ul {
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+	cursor: pointer;
 }
 
 li:hover {
@@ -121,9 +122,33 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
+/* ******  Portofolio ********* */
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
+}
+.filter-bar {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 3em;
+}
+.filter {
+	padding: 5px 20px;
+	border: 1px solid #1D6154;
+	color: #1D6154;
+	border-radius: 60px;
+	cursor: pointer;
+}
+.filter:hover{
+	background-color: #bce8e0;
+}
+.filter.active {
+	background-color: #1D6154;
+	color: #fff;
 }
 .gallery {
 	width: 100%;
@@ -137,6 +162,8 @@ li:hover {
 	width: 100%;
 
 }
+
+/* ******  CONTACT ********* */
 #contact {
 	width: 50%;
 margin: auto;
