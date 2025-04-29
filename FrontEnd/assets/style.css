@@ -52,6 +52,7 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	background-color: #FFFEF8;
 }
 header {
 	display: flex;
@@ -94,6 +95,13 @@ nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
 	cursor: pointer;
+}
+nav li.active {
+	font-weight: 700;
+}
+nav a {
+	text-decoration: none;
+	color: #000;
 }
 
 li:hover {
