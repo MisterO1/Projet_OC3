@@ -34,7 +34,7 @@ async function loginRequest(email,password) {
     }).then(data => {
         if (data){
             sessionStorage.setItem("token",JSON.stringify(data.token))
-            window.location.href = "./index.html"
+            window.location.href = "./homepage.html"
         }
     }).catch(error =>{
         document.querySelector(".msg-error").textContent = error.message

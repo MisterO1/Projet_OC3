@@ -79,6 +79,12 @@ body{
     left: 10px;
     cursor: pointer;
 }
+.icon-back path {
+    fill: transparent ;
+}
+.icon-back.active path {
+    fill: #000 ;
+}
 .icon-close {
     position: relative;
     right: 10px;
@@ -90,12 +96,15 @@ body{
     position: relative;
 }
 .modal-content > div {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.modal-gallery h2 {
+.modal-content > div.active{
+    display: flex;
+}
+.modal-title {
     color: #000;
     font-size: 26px;
     font-weight: 400;
@@ -103,18 +112,33 @@ body{
     padding: 15px 0 50px 0 ;
 }
 
-.gallery-works {
+/* .gallery-works {
     display: flex;
     flex-wrap: wrap;
+    justify-content: baseline;
     margin: 0 100px;
-    gap: 9px;
-    height: 400px;
+    row-gap: 9px;
+    column-gap: 9px;
+    height: 440px;
     border-bottom: 1px solid #B3B3B3;
-    margin-bottom: 30px;
-    padding-bottom: 50px;
+} */
+.modal .container {
+    width: 420px;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #B3B3B3;
+}
+.gallery-works {
+    display: grid;
+    grid-template-columns: repeat(5, 80px);
+    grid-template-rows : repeat(auto-fill, 100px);
+    row-gap: 30px;
+    column-gap: 5px;
 }
 .gallery-works figure {
     position: relative;
+    height: fit-content;
 }
 .gallery-works svg {
     position: absolute;
@@ -122,8 +146,8 @@ body{
     right: 5px;
 }
 .gallery-works img {
-    width: 77px;
-    height: 103px;
+    width: 80px;
+    height: 100px;
 }
 .modal-content button {
     border: none;
@@ -141,7 +165,3 @@ body{
     margin-top: 10px;
 }
 
-.modal-form {
-    display: none !important;
-    background-color: aqua;
-}
