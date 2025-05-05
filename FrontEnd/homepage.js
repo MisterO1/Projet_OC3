@@ -30,7 +30,7 @@ async function printWorks(category) {
     }
 }
 
-// ****** modal : handle adding and deleting works *******
+// ****** modal : handle adding and deleting works ******* //
 const editBtn = document.querySelector(".edit")
 editBtn.addEventListener("click", ()=>{
     document.querySelector(".modal").classList.add("active")
@@ -42,9 +42,10 @@ closeBtn.addEventListener("click", ()=>{
 })
 
 const backBtn = document.querySelector(".icon-back")
-backBtn.addEventListener("click", ()=>{
+backBtn.addEventListener("click", function(){
     document.querySelector(".modal-form").classList.remove("active")
     document.querySelector(".modal-gallery").classList.add("active")
+    this.classList.remove("active")
 })
 const addWorkBtn = document.querySelector(".modal-gallery button")
 addWorkBtn.addEventListener("click", ()=>{
@@ -53,3 +54,9 @@ addWorkBtn.addEventListener("click", ()=>{
     backBtn.classList.add("active")
 })
 
+const fileSelect = document.getElementById("fileSelect");
+const fileElem = document.getElementById("fileElem");
+
+fileSelect.addEventListener("click",() => {
+    fileElem.click()
+})

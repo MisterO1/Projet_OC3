@@ -15,6 +15,9 @@ body{
     align-items: center;
     position: relative;
 }
+button {
+    cursor: pointer;
+}
 .edit-bar {
     background-color: #000;
     width: 100%;
@@ -112,21 +115,13 @@ body{
     padding: 15px 0 50px 0 ;
 }
 
-/* .gallery-works {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: baseline;
-    margin: 0 100px;
-    row-gap: 9px;
-    column-gap: 9px;
-    height: 440px;
-    border-bottom: 1px solid #B3B3B3;
-} */
 .modal .container {
     width: 420px;
     height: 450px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
     border-bottom: 1px solid #B3B3B3;
 }
 .gallery-works {
@@ -149,19 +144,60 @@ body{
     width: 80px;
     height: 100px;
 }
-.modal-content button {
+.modal-gallery > button {
+    background-color: #1D6154;
+}
+.form-works > button {
+    background-color: #A7A7A7;
+}
+.form-works > button.active {
+    background-color: #1D6154;
+}
+.modal-gallery > button,
+.form-works > button {
     border: none;
     border-radius: 60px;
     height: 36px;
-    padding: 11px 50px;
-    background-color: #1D6154;
+    width: 237px;
+    /* padding: 11px 50px; */
     color: #fff;
     font-size: 14px;
     font-family: "Syne";
     font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
+    text-align: center;
     margin-top: 10px;
+}
+
+.form-works {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.upload-space {
+    width: 100%;
+    height: 169px;
+    background-color: #E8F1F6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.upload-space-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+.upload-space-content p {
+    font-size: 10px;
+}
+#fileSelect {
+    border: none;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #306685;
+    padding: 10px 33px;
+    background-color: #CBD6DC;
 }
 
