@@ -1,7 +1,7 @@
-div {
+/* div {
     border: 1px solid red;
-    /* box-sizing: border-box; */
-}
+    box-sizing: border-box;
+} */
 body, html {
     width: 100vw;
     height: max-content;
@@ -120,7 +120,6 @@ button {
     height: 450px;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
     border-bottom: 1px solid #B3B3B3;
 }
@@ -139,6 +138,7 @@ button {
     position: absolute;
     top: 5px;
     right: 5px;
+    cursor: pointer;
 }
 .gallery-works img {
     width: 80px;
@@ -165,7 +165,7 @@ button {
     font-family: "Syne";
     font-weight: 700;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 .form-works {
@@ -191,6 +191,12 @@ button {
 .upload-space-content p {
     font-size: 10px;
 }
+.upload-space img {
+    width: 129px;
+    height: 169px;
+    object-fit: cover;
+}
+
 #fileSelect {
     border: none;
     border-radius: 50px;
@@ -201,3 +207,22 @@ button {
     background-color: #CBD6DC;
 }
 
+.form-works .container {
+    gap: 20px;
+}
+.form-works .container > div {
+    width: 100%;
+}
+.form-works .container input,
+.form-works .container select {
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
+    border: none;
+    box-shadow: 0px 4px 14px 0px #00000017;
+    margin-top: 5px;
+}
+.form-works .container label {
+    color: #3D3D3D;
+    font-weight: 500;
+}
