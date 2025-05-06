@@ -191,6 +191,9 @@ button {
 .upload-space-content p {
     font-size: 10px;
 }
+.upload-space-content p.error{
+    color: red;
+}
 .upload-space img {
     width: 129px;
     height: 169px;
@@ -221,8 +224,11 @@ button {
     border: none;
     box-shadow: 0px 4px 14px 0px #00000017;
     margin-top: 5px;
+    color: #3D3D3D;
+    font-weight: 500;
 }
-.form-works .container label {
+.form-works .container label,
+.form-works .container option {
     color: #3D3D3D;
     font-weight: 500;
 }
