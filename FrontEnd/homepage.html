@@ -55,7 +55,7 @@
 				</h2>
 				
 				<div class="gallery">
-					<figure>
+					<!-- <figure>
 						<img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
 						<figcaption>Abajour Tahina</figcaption>
 					</figure>
@@ -98,7 +98,7 @@
 					<figure>
 						<img src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi">
 						<figcaption>Hotel First Arte - New Delhi</figcaption>
-					</figure>
+					</figure> -->
 				</div>
 			</section>
 			<section id="contact">
@@ -123,7 +123,7 @@
 			</nav>
 		</footer>
 	</div>
-	<div class="modal active">
+	<div class="modal">
 		<div class="modal-box">
 			<div class="icon-box">
 				<svg class="icon-back active" width="21" height="18" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -134,7 +134,7 @@
 				</svg>									
 			</div>
 			<div class="modal-content">
-				<div class="modal-gallery">
+				<div class="modal-gallery active">
 					<h2 class="modal-title">Galerie photo</h2>
 					<div class="container">
 						<div class="gallery-works">
@@ -219,8 +219,8 @@
 					</div>
 					<button>Ajouter une photo</button>
 				</div>
-				<div class="modal-form active">
-					<form class="form-works" method="">
+				<div class="modal-form">
+					<form class="form-works">
 						<h2 class="modal-title">Ajout photo</h2>
 						<div class="container">
 							<div class="upload-space">
@@ -235,11 +235,11 @@
 								<img id="preview" style="display: none;">
 							</div>
 							<div>
-								<label for="work-name" id="work-name">Titre</label><br>
-								<input type="text" name="work-name" id="">
+								<label for="title">Titre</label><br>
+								<input type="text" name="title" id="title">
 							</div>
 							<div>
-								<label for="category" id="category">Catégorie</label><br>
+								<label for="category" >Catégorie</label><br>
 								<select name="category" id="category">
 									<option value=""></option>
 									<option value="Objets">Objets</option>
