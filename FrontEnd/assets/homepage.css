@@ -31,7 +31,15 @@ button {
 
 .main-container {
     margin: auto;
-    max-width: 1140px;
+    /* max-width: 1140px; */
+    padding: 0 60px;
+}
+header {
+    padding: 0 30px
+}
+main {
+    margin: auto;
+    padding: 0 30px;
 }
 .edit{
     color: #000;

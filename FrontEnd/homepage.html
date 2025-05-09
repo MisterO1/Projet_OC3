@@ -26,7 +26,7 @@
 				<ul>
 					<li><a href="#portofolio">projets</a></li>
 					<li><a href="#contact">contact</a></li>
-					<li><a href="./login.html">login</a></li>
+					<li id="logout">logout</li>
 					<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 				</ul>
 			</nav>
@@ -110,7 +110,7 @@
 					<label for="email">Email</label>
 					<input type="email" name="email" id="email">
 					<label for="message">Message</label>
-					<textarea name="message" id="message" cols="30" rows="10"></textarea>
+					<textarea name="message" id="message" cols="30" rows="10" style="resize:vertical; overflow: auto;"></textarea>
 					<input type="submit" value="Envoyer">
 				</form>
 			</section>
@@ -220,7 +220,7 @@
 					<button>Ajouter une photo</button>
 				</div>
 				<div class="modal-form">
-					<form class="form-works">
+					<form class="form-works" autocomplete>
 						<h2 class="modal-title">Ajout photo</h2>
 						<div class="container">
 							<div class="upload-space">

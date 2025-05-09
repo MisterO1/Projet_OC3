@@ -1,3 +1,8 @@
+// Redirect if not logged on
+if (!sessionStorage.getItem("token")){
+    window.location.href = "./index.html"
+}
+
 // ****** print works according to the filter selected ******
 const filtersBtn = document.querySelectorAll(".filter")
 filtersBtn.forEach(filter => {
@@ -38,12 +43,13 @@ const modalBox = document.querySelector(".modal-box");
 
 modal.addEventListener("click", (e) => {
     if (!modalBox.contains(e.target)) {
-    modal.classList.remove("active")
+        modal.classList.remove("active")
     }
 })
 async function displayModal() {
     const editBtn = document.querySelector(".edit")
     editBtn.addEventListener("click", async ()=>{
+        console.log("editBtn clicked -> gallery-works printed")
         const works = await fetch("http://localhost:5678/api/works").then( works => works.json())
         const galleryWorks = document.querySelector(".gallery-works")
         galleryWorks.innerHTML = ""
@@ -86,7 +92,7 @@ fileElem.addEventListener('change', function () {
     const file = fileElem.files[0];
     const error = document.querySelector(".upload-space-content p")
     if (file) {
-        const maxSize = 1 * 1024 * 1024; // 4 Mo en octets
+        const maxSize = 4 * 1024 * 1024; // 4 Mo en octets
         if (file.size > maxSize) {
             error.textContent = "L'image ne doit pas dépasser 1 Mo.";
             error.classList.add("error")
@@ -144,7 +150,7 @@ async function printCategoriesToSelect(){
     const select = document.querySelector("#category")
     select.innerHTML = "<option value=''></option>"
     for (let cat of worksCategories){
-        select.insertAdjacentHTML("beforeend",`<option value=${cat.name}>${cat.name}</option>`)
+        select.insertAdjacentHTML("beforeend",`<option value=${cat.id}>${cat.name}</option>`)
     }
 }
 printCategoriesToSelect()
@@ -157,7 +163,7 @@ function addlistenerToDeleteIcons(){
             const works = await fetch("http://localhost:5678/api/works").then( works => works.json())
             const work = works.filter((w) => {   return w.imageUrl === imgUrl   })[0]
             if(work){
-                alert(`Projet ${work.id} : ${work.title} -> is to delete`)
+                // alert(`Projet ${work.id} : ${work.title} -> is to delete`)
                 await fetch(
                     `http://localhost:5678/api/works/${work.id}`,
                     {
@@ -194,8 +200,41 @@ function sendNewWork() {
                 },
                 body: formData
             }
-        ).then( data => console.log(data)
+        ).then( data => {
+            if (data){
+                // update gallery just after
+                printWorks()
+                // update gallery-works too
+                document.querySelector(".edit").click()
+                // clear the form
+                clearForm()
+            }
+        }
         ).catch(error => console.log(error))
     })
 }
 sendNewWork()
+function clearForm() {
+    // const modalForm = document.querySelector(".form-works")
+    const listChamp = document.querySelectorAll(".form-works input,.form-works select")
+    console.log("contenu avant")
+    console.log(document.getElementById("fileElem").files)
+        for ( let champ of listChamp){
+            champ.value = ""
+        }
+    console.log("contenu après")
+    console.log(document.getElementById("fileElem").files)
+    const preview = document.querySelector("#preview")
+    preview.src = ""
+    preview.style.display = "none"
+    document.querySelector(".upload-space-content").style.display = "flex"
+}
+
+/// LOGOUT ////
+function logout() {
+    document.getElementById("logout").addEventListener("click", ()=>{
+        sessionStorage.removeItem("token")
+        window.location.href = "./index.html"
+    })
+}
+logout()
