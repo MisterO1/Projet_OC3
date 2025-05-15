@@ -1,9 +1,13 @@
+import { printWorks } from "./script.js"
+
 // Redirect if not logged on
 if (!sessionStorage.getItem("token")){
     window.location.href = "./index.html"
 }
 
-// ****** print works according to the filter selected ******
+printWorks()
+
+// ****** Print works according to the filter selected ******
 const filtersBtn = document.querySelectorAll(".filter")
 filtersBtn.forEach(filter => {
     filter.addEventListener("click", ()=>{
@@ -16,25 +20,6 @@ filtersBtn.forEach(filter => {
         printWorks(filter.innerText)
     })
 })
-
-async function printWorks(category="Tous") {
-    const works = await fetch("http://localhost:5678/api/works").then( works => works.json())
-    const gallery = document.querySelector(".gallery")
-    gallery.innerHTML = ""
-    const worksFiltered = category === "Tous" ? works : works.filter(work => category === work.category.name)
-    for (let work of worksFiltered){
-        const figure = document.createElement("figure")
-        const img = document.createElement("img")
-        img.src = work.imageUrl
-        img.alt = work.title
-        const figcaption = document.createElement("figcaption")
-        figcaption.innerText = work.title
-        figure.appendChild(img)
-        figure.appendChild(figcaption)
-        gallery.appendChild(figure)
-    }
-}
-printWorks()
 
 
 // ****** modal : handle adding and deleting works ******* //
@@ -94,7 +79,7 @@ fileElem.addEventListener('change', function () {
     if (file) {
         const maxSize = 4 * 1024 * 1024; // 4 Mo en octets
         if (file.size > maxSize) {
-            error.textContent = "L'image ne doit pas dépasser 1 Mo.";
+            error.textContent = "L'image ne doit pas dépasser 4 Mo."
             error.classList.add("error")
             fileElem.value = ''; // Réinitialise le champ
         } else {
@@ -163,7 +148,9 @@ function addlistenerToDeleteIcons(){
             const works = await fetch("http://localhost:5678/api/works").then( works => works.json())
             const work = works.filter((w) => {   return w.imageUrl === imgUrl   })[0]
             if(work){
-                // alert(`Projet ${work.id} : ${work.title} -> is to delete`)
+                if (!confirm(`Projet ${work.id} : ${work.title} -> is about to be deleted`)) {
+                    return;
+                }
                 await fetch(
                     `http://localhost:5678/api/works/${work.id}`,
                     {
@@ -183,7 +170,7 @@ function addlistenerToDeleteIcons(){
 }
 
 //*********** POST NEW WORK *************
-function sendNewWork() {
+function postNewWork() {
     const modalForm = document.querySelector(".form-works")
     modalForm.addEventListener("submit", async function(e){
         e.preventDefault()
@@ -200,30 +187,22 @@ function sendNewWork() {
                 },
                 body: formData
             }
-        ).then( data => {
-            if (data){
-                // update gallery just after
-                printWorks()
-                // update gallery-works too
-                document.querySelector(".edit").click()
-                // clear the form
-                clearForm()
+            ).then( data => {
+                if (data){
+                    printWorks()                            // update gallery just after
+                    document.querySelector(".edit").click() // update gallery-works too
+                    clearForm()                             // clear the form
+                }
             }
-        }
-        ).catch(error => console.log(error))
+            ).catch(error => console.log(error))
     })
 }
-sendNewWork()
+postNewWork()
 function clearForm() {
-    // const modalForm = document.querySelector(".form-works")
     const listChamp = document.querySelectorAll(".form-works input,.form-works select")
-    console.log("contenu avant")
-    console.log(document.getElementById("fileElem").files)
-        for ( let champ of listChamp){
-            champ.value = ""
-        }
-    console.log("contenu après")
-    console.log(document.getElementById("fileElem").files)
+    for ( let champ of listChamp){
+        champ.value = ""
+    }
     const preview = document.querySelector("#preview")
     preview.src = ""
     preview.style.display = "none"

@@ -1,20 +1,6 @@
-// import { printWorks } from "./categories"
-
-const works = await fetch("http://localhost:5678/api/works").then( works => works.json())
-const filtersBtn = document.querySelectorAll(".filter")
-filtersBtn.forEach(filter => {
-    filter.addEventListener("click", ()=>{
-        const filterActive = document.querySelector(".filter.active")
-        if (filter === filterActive){
-            return
-        }
-        filterActive.classList.remove("active")
-        filter.classList.add("active")
-        printWorks(filter.innerText)
-    })
-})
-
-async function printWorks(category) {
+// Display works from API
+export async function printWorks(category = "Tous") {
+    const works = await fetch("http://localhost:5678/api/works").then( works => works.json())
     const gallery = document.querySelector(".gallery")
     gallery.innerHTML = ""
     const worksFiltered = category === "Tous" ? works : works.filter(work => category === work.category.name)
@@ -30,4 +16,18 @@ async function printWorks(category) {
         gallery.appendChild(figure)
     }
 }
+printWorks()
 
+// FILTER BY CATEGORIES
+const filtersBtn = document.querySelectorAll(".filter")
+filtersBtn.forEach(filter => {
+    filter.addEventListener("click", ()=>{
+        const filterActive = document.querySelector(".filter.active")
+        if (filter === filterActive){
+            return
+        }
+        filterActive.classList.remove("active")
+        filter.classList.add("active")
+        printWorks(filter.innerText)
+    })
+})

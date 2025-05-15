@@ -1,4 +1,3 @@
-// const submitBtn = document.querySelector("form button")
 const form = document.querySelector("form")
 form.addEventListener("submit", (e)=>{
     e.preventDefault()
@@ -18,8 +17,8 @@ async function loginRequest(email,password) {
                 "accept":"application/json"
             },
             body: JSON.stringify({
-                email: email,
-                password: password
+                email,
+                password,
             })
         }
     ).then(response => {
