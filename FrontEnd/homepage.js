@@ -148,7 +148,7 @@ function addlistenerToDeleteIcons(){
             const works = await fetch("http://localhost:5678/api/works").then( works => works.json())
             const work = works.filter((w) => {   return w.imageUrl === imgUrl   })[0]
             if(work){
-                if (!confirm(`Projet ${work.id} : ${work.title} -> is about to be deleted`)) {
+                if (!confirm(`Etes vous sûr de vouloir supprimer ${work.title} ?`)) {
                     return;
                 }
                 await fetch(
