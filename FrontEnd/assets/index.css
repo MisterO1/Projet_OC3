@@ -23,12 +23,14 @@ button {
     width: 100%;
     padding: 20px 0;
     color: #fff;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
-
+.edit-bar.active {
+    display: flex;
+}
 .main-container {
     margin: auto;
     /* max-width: 1140px; */
@@ -47,6 +49,19 @@ main {
     font-family: "Work Sans";
     margin-left: 20px;
     cursor: pointer;
+    display: none;
+}
+.edit.active {
+    display: inline;
+}
+
+#login,
+#logout{
+    display: none;
+}
+#login.active,
+#logout.active{
+    display: block;
 }
 
 .modal {

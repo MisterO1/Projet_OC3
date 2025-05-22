@@ -1,10 +1,33 @@
-import { printWorks } from "./script.js"
+document.addEventListener("DOMContentLoaded", ()=>{
+    const token = sessionStorage.getItem("token")
+    if (!token){    // if not logged on
+        document.querySelector(".filter-bar").classList.add("active")
+        document.getElementById("login").classList.add("active")
+    }else{          // if connected
+        document.querySelector(".edit-bar").classList.add("active")
+        document.querySelector(".edit").classList.add("active")
+        document.getElementById("logout").classList.add("active")
+    }
+})
 
-// Redirect if not logged on
-if (!sessionStorage.getItem("token")){
-    window.location.href = "./index.html"
+// Display works from API
+export async function printWorks(category = "Tous") {
+    const works = await fetch("http://localhost:5678/api/works").then( works => works.json())
+    const gallery = document.querySelector(".gallery")
+    gallery.innerHTML = ""
+    const worksFiltered = category === "Tous" ? works : works.filter(work => category === work.category.name)
+    for (let work of worksFiltered){
+        const figure = document.createElement("figure")
+        const img = document.createElement("img")
+        img.src = work.imageUrl
+        img.alt = work.title
+        const figcaption = document.createElement("figcaption")
+        figcaption.innerText = work.title
+        figure.appendChild(img)
+        figure.appendChild(figcaption)
+        gallery.appendChild(figure)
+    }
 }
-
 printWorks()
 
 // ****** Print works according to the filter selected ******
@@ -21,7 +44,6 @@ filtersBtn.forEach(filter => {
     })
 })
 
-
 // ****** modal : handle adding and deleting works ******* //
 const modal = document.querySelector(".modal");
 const modalBox = document.querySelector(".modal-box");
@@ -34,7 +56,7 @@ modal.addEventListener("click", (e) => {
 async function displayModal() {
     const editBtn = document.querySelector(".edit")
     editBtn.addEventListener("click", async ()=>{
-        console.log("editBtn clicked -> gallery-works printed")
+        // console.log("editBtn clicked -> gallery-works printed")
         const works = await fetch("http://localhost:5678/api/works").then( works => works.json())
         const galleryWorks = document.querySelector(".gallery-works")
         galleryWorks.innerHTML = ""
@@ -75,11 +97,17 @@ addWorkBtn.addEventListener("click", ()=>{
 // ******** upload works feature *********
 fileElem.addEventListener('change', function () {
     const file = fileElem.files[0];
+    const fileType = file.name.split('.')[1]
+    // console.log(fileType)
     const error = document.querySelector(".upload-space-content p")
     if (file) {
         const maxSize = 4 * 1024 * 1024; // 4 Mo en octets
         if (file.size > maxSize) {
             error.textContent = "L'image ne doit pas dépasser 4 Mo."
+            error.classList.add("error")
+            fileElem.value = ''; // Réinitialise le champ
+        } else if (!["png", "jpg"].includes(fileType)){
+            error.textContent = "L'image doit être au format jpg ou png"
             error.classList.add("error")
             fileElem.value = ''; // Réinitialise le champ
         } else {
@@ -128,6 +156,12 @@ function activateValidateButton() {
     })
 }
 activateValidateButton()
+
+function disableValidateButton(){
+    const validateBtn = document.querySelector(".form-works > button")
+    validateBtn.disabled = true
+    validateBtn.classList.remove("active")
+}
 
 // ***** import category from api ******
 async function printCategoriesToSelect(){
@@ -192,6 +226,7 @@ function postNewWork() {
                     printWorks()                            // update gallery just after
                     document.querySelector(".edit").click() // update gallery-works too
                     clearForm()                             // clear the form
+                    disableValidateButton()
                 }
             }
             ).catch(error => console.log(error))

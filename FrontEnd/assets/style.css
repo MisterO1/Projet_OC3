@@ -141,12 +141,15 @@ li:hover {
 	margin-bottom: 1em;
 }
 .filter-bar {
-	display: flex;
+	display: none;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	gap: 10px;
 	margin-bottom: 3em;
+}
+.filter-bar.active {
+	display: flex;
 }
 .filter {
 	padding: 5px 20px;

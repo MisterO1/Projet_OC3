@@ -33,7 +33,7 @@ async function loginRequest(email,password) {
     }).then(data => {
         if (data){
             sessionStorage.setItem("token",data.token)
-            window.location.href = "./homepage.html"
+            window.location.href = "./index.html"
         }
     }).catch(error =>{
         document.querySelector(".msg-error").textContent = error.message
